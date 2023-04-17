@@ -28,15 +28,8 @@ public class CalculatorController {
     }
     // http://localhost:8080/api/v1/calculator/mult
     // RequestBody json
-//    {
-//    "num1": 65.83,
-//    "num2": 1.2,
-//    "num3": 2.1,
-//    "num41": 3.2
-//
-//  }
     @PostMapping("/mult")
-    public ResponseEntity mult(@RequestBody CalculatorDTO calculatorDTO){
+    public ResponseEntity<Double> mult(@RequestBody CalculatorDTO calculatorDTO){
         Double result = null;
         result = calculatorDTO.getNum1() * calculatorDTO.getNum2() * calculatorDTO.getNum3() * calculatorDTO.getNum4();
         ResponseEntity<Double> responseEntity = new ResponseEntity<Double>(result, HttpStatus.CREATED);
