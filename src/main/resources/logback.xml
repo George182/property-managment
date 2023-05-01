@@ -36,7 +36,7 @@
 
     <springProfile name="dev">
         <root level="INFO">
-            <appender-ref ref="FILE-ROLLING" />
+            <appender-ref ref="STDOUT" />
         </root>
     </springProfile>
 
