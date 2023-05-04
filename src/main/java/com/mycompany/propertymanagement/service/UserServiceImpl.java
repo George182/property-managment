@@ -1,10 +1,12 @@
 package com.mycompany.propertymanagement.service;
 
 import com.mycompany.propertymanagement.converter.UserConverter;
+import com.mycompany.propertymanagement.entity.AddressEntity;
 import com.mycompany.propertymanagement.entity.UserEntity;
 import com.mycompany.propertymanagement.exception.BusinessException;
 import com.mycompany.propertymanagement.exception.ErrorModel;
 import com.mycompany.propertymanagement.model.UserDTO;
+import com.mycompany.propertymanagement.repository.AddressRepository;
 import com.mycompany.propertymanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,8 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService{
 
     @Autowired
+    private AddressRepository addressRepository;
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
@@ -26,10 +30,20 @@ public class UserServiceImpl implements UserService{
     public UserDTO register(UserDTO userDTO) {
         UserEntity userEntity = userConverter.convertDtoToEntity(userDTO);
 
+        AddressEntity addressEntity = new AddressEntity();
+        addressEntity.setHouseNbr(userDTO.getHouseNbr());
+        addressEntity.setCity(userDTO.getCity());
+        addressEntity.setPostalCode(userDTO.getPostalCode());
+        addressEntity.setStreet(userDTO.getStreet());
+        addressEntity.setCountry(userDTO.getCountry());
+
+        addressEntity.setUserEntity(userEntity);
+
         Optional<UserEntity> user =  userRepository.findByOwnerEmail(userDTO.getOwnerEmail());
 
         if(!user.isPresent()){
             userRepository.save(userEntity);
+            addressRepository.save(addressEntity);
             userDTO = userConverter.convertEntityToDto(userEntity);
             return userDTO;
         }else {

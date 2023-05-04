@@ -16,6 +16,7 @@ import javax.validation.constraints.Size;
 public class UserDTO {
 
     private Long id;
+
     private String ownerName;
 
     @NotNull(message = "Owner Email is Mandatory")
@@ -29,4 +30,11 @@ public class UserDTO {
     private String password;
 
     private String phoneNbr;
+
+
+    private String houseNbr;
+    private String street;
+    private String city;
+    private String postalCode;
+    private String country;
 }
