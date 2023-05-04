@@ -16,7 +16,6 @@ import javax.validation.constraints.Size;
 public class UserDTO {
 
     private Long id;
-
     private String ownerName;
 
     @NotNull(message = "Owner Email is Mandatory")
